@@ -35,14 +35,14 @@ int main(int argc, char* argv[]) {
    pthread_t* thread_handles; 
    srand(0);
    
-   sem_init(&semaphore, 0, 4);
+   sem_init(&semaphore, 0, 4); //4 threads por vez
    
    long thread_count = 40; 
 
    thread_handles = malloc (thread_count*sizeof(pthread_t)); 
 
-   for (thread = 0; thread < thread_count; thread++){  
-      sem_wait(&semaphore);
+   for (thread = 0; thread < thread_count; thread++){  //vai criar as 40 threads
+      sem_wait(&semaphore); //antes de criar, chama sem_wait
       pthread_create(&thread_handles[thread], NULL, execute, (void*) thread);  
    }
    
