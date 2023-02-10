@@ -22,7 +22,7 @@ sem_t semaphore;
 void *execute(void *args) {
    long id = (long) args;
    printf("Thread %ld running\n", id);
-   sleep((rand() % 5) + 1);
+   sleep((rand() % 5) + 1); //threads vão "dormir" de 1 a 5 segundos
    printf("Thread %ld finish\n", id);
    sem_post(&semaphore);
    return NULL;
@@ -43,6 +43,7 @@ int main(int argc, char* argv[]) {
 
    for (thread = 0; thread < thread_count; thread++){  //vai criar as 40 threads
       sem_wait(&semaphore); //antes de criar, chama sem_wait
+      //processo principal esperando para criar a proxima thread
       pthread_create(&thread_handles[thread], NULL, execute, (void*) thread);  
    }
    
